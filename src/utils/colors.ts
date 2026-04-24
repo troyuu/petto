@@ -1,0 +1,50 @@
+// Colors for non-NativeWind contexts (Victory Native charts, etc.)
+export const colors = {
+  primary: {
+    50: '#EAFAF1',
+    100: '#D5F5E3',
+    200: '#ABEBC6',
+    300: '#82D9A2',
+    400: '#52B788',
+    500: '#2D6A4F',
+    600: '#245A42',
+    700: '#1B4332',
+    800: '#133026',
+    900: '#0B1F19',
+  },
+  accent: {
+    50: '#FEF3EE',
+    100: '#FCE0D3',
+    200: '#F9C1A7',
+    300: '#F4A261',
+    400: '#F08C47',
+    500: '#E76F51',
+    600: '#D35E43',
+    700: '#B84E38',
+    800: '#9A3E2D',
+    900: '#7D3024',
+  },
+  cream: '#FDF6EC',
+  darkBg: '#1A1A2E',
+  darkSurface: '#16213E',
+  darkCard: '#1E2A47',
+  text: '#1A1A2E',
+  textDark: '#E8E8E8',
+  muted: '#6B7280',
+  mutedDark: '#9CA3AF',
+  success: '#10B981',
+  warning: '#F59E0B',
+  danger: '#EF4444',
+  info: '#3B82F6',
+} as const;
+
+// Chart color palette for Victory Native
+export const chartColors = [
+  colors.primary[500],
+  colors.accent[500],
+  colors.accent[300],
+  colors.primary[300],
+  colors.info,
+  colors.warning,
+  colors.success,
+] as const;
