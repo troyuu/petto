@@ -32,13 +32,19 @@ module.exports = {
           900: '#7D3024',
         },
         cream: '#FDF6EC',
-        'dark-bg': '#1A1A2E',
-        'dark-surface': '#16213E',
-        'dark-card': '#1E2A47',
-        'text-primary': '#1A1A2E',
-        'text-secondary': '#6B7280',
-        'text-dark': '#E8E8E8',
-        'text-muted': '#9CA3AF',
+        // GitHub-inspired dark palette
+        'dark-bg': '#0D1117',       // canvas (page background)
+        'dark-surface': '#161B22',  // subtle panels / header strip
+        'dark-card': '#21262D',     // raised cards (most prominent elevation)
+        'dark-border': '#30363D',
+        // Body text
+        'text-primary': '#1A1A2E',  // light-mode primary
+        'text-secondary': '#4B5563',
+        'text-dark': '#E6EDF3',     // GitHub fg.default
+        'text-muted': '#6B7280',
+        // Muted paired for dark mode
+        muted: '#6B7280',
+        'muted-dark': '#8B949E',    // GitHub fg.muted — visible on #0D1117
       },
       fontFamily: {
         sans: ['System'],

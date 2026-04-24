@@ -1,7 +1,8 @@
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import { useColorScheme as useSystemColorScheme } from 'react-native';
 import { NavigationContainer, type Theme } from '@react-navigation/native';
 import RootNavigator from '@/app/navigation/RootNavigator';
+import { useAppStore } from '@/store/useAppStore';
 
 const fonts = {
   regular: { fontFamily: 'System', fontWeight: '400' as const },
@@ -26,19 +27,21 @@ const LightTheme: Theme = {
 const DarkTheme: Theme = {
   dark: true,
   colors: {
-    primary: '#2D6A4F',
-    background: '#1A1A2E',
-    card: '#16213E',
-    text: '#E8E8E8',
-    border: '#1E2A47',
+    primary: '#52B788',
+    background: '#0D1117',
+    card: '#161B22',
+    text: '#E6EDF3',
+    border: '#30363D',
     notification: '#F4A261',
   },
   fonts,
 };
 
 export default function AppNavigation() {
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? DarkTheme : LightTheme;
+  const themeMode = useAppStore((state) => state.theme);
+  const systemScheme = useSystemColorScheme();
+  const effective = themeMode === 'system' ? systemScheme : themeMode;
+  const theme = effective === 'dark' ? DarkTheme : LightTheme;
 
   return (
     <NavigationContainer theme={theme}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import { useColorScheme as useSystemColorScheme } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, PawPrint, HeartPulse, Wallet, Settings } from 'lucide-react-native';
 import type { MainTabParamList } from '@/app/navigation/types';
@@ -8,25 +8,30 @@ import PetStack from '@/app/navigation/stacks/PetStack';
 import HealthStack from '@/app/navigation/stacks/HealthStack';
 import ExpenseStack from '@/app/navigation/stacks/ExpenseStack';
 import SettingsStack from '@/app/navigation/stacks/SettingsStack';
+import { useAppStore } from '@/store/useAppStore';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const ACTIVE_COLOR = '#2D6A4F';
-const INACTIVE_COLOR = '#6B7280';
+const ACTIVE_COLOR_LIGHT = '#2D6A4F';
+const ACTIVE_COLOR_DARK = '#52B788';
+const INACTIVE_COLOR_LIGHT = '#6B7280';
+const INACTIVE_COLOR_DARK = '#8B949E';
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const themeMode = useAppStore((state) => state.theme);
+  const systemScheme = useSystemColorScheme();
+  const effective = themeMode === 'system' ? systemScheme : themeMode;
+  const isDark = effective === 'dark';
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: ACTIVE_COLOR,
-        tabBarInactiveTintColor: INACTIVE_COLOR,
+        tabBarActiveTintColor: isDark ? ACTIVE_COLOR_DARK : ACTIVE_COLOR_LIGHT,
+        tabBarInactiveTintColor: isDark ? INACTIVE_COLOR_DARK : INACTIVE_COLOR_LIGHT,
         tabBarStyle: {
-          backgroundColor: isDark ? '#16213E' : '#FFFFFF',
-          borderTopColor: isDark ? '#1E2A47' : '#E5E7EB',
+          backgroundColor: isDark ? '#161B22' : '#FFFFFF',
+          borderTopColor: isDark ? '#30363D' : '#E5E7EB',
         },
         popToTopOnBlur: true,
       }}

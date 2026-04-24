@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   Alert,
-  FlatList,
   Pressable,
   ScrollView,
   Switch,
@@ -139,16 +138,16 @@ export default function AddMedicationScreen({ navigation, route }: Props) {
           <Text className="text-sm font-medium text-text-primary dark:text-text-dark mb-2">
             Select Pet
           </Text>
-          <FlatList
+          <ScrollView
             horizontal
-            data={pets}
-            keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
             contentContainerClassName="gap-3"
-            renderItem={({ item }) => {
+          >
+            {pets.map((item) => {
               const isSelected = item.id === petId;
               return (
                 <Pressable
+                  key={item.id}
                   onPress={() => handleSelectPet(item.id)}
                   accessibilityLabel={`Select ${item.name}`}
                   accessibilityRole="button"
@@ -176,8 +175,8 @@ export default function AddMedicationScreen({ navigation, route }: Props) {
                   </Text>
                 </Pressable>
               );
-            }}
-          />
+            })}
+          </ScrollView>
           {errors.pet && (
             <Text className="text-sm text-red-500 mt-1">{errors.pet}</Text>
           )}

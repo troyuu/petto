@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, View, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { colorScheme as nwColorScheme } from 'nativewind';
 import { getDatabase } from '@/database/connection';
 import { runMigrations } from '@/database/migrations';
+import { useAppStore } from '@/store/useAppStore';
 import AppNavigation from '@/app/navigation';
 
 export function AppProviders() {
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const themeMode = useAppStore((state) => state.theme);
+
+  useEffect(() => {
+    nwColorScheme.set(themeMode);
+  }, [themeMode]);
 
   useEffect(() => {
     async function initialize() {
