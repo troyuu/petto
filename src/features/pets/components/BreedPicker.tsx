@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { FlatList, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { Check } from 'lucide-react-native';
 import type { PetType } from '@/utils/types';
 import { DOG_BREEDS, CAT_BREEDS } from '@/utils/constants';
@@ -53,8 +53,6 @@ const BreedItem = React.memo(function BreedItem({
   );
 });
 
-const keyExtractor = (item: string) => item;
-
 const BreedPicker: React.FC<BreedPickerProps> = ({
   petType,
   selectedBreed,
@@ -92,28 +90,6 @@ const BreedPicker: React.FC<BreedPickerProps> = ({
     [onSelect],
   );
 
-  const renderItem = useCallback(
-    ({ item }: { item: string }) => (
-      <BreedItem
-        breed={item}
-        isSelected={selectedBreed === item}
-        onPress={handleBreedSelect}
-      />
-    ),
-    [selectedBreed, handleBreedSelect],
-  );
-
-  const listEmptyComponent = useMemo(
-    () => (
-      <View className="items-center py-8">
-        <Text className="text-sm text-muted dark:text-muted-dark">
-          No breeds match your search
-        </Text>
-      </View>
-    ),
-    [],
-  );
-
   if (petType === 'other') {
     return (
       <Input
@@ -138,16 +114,24 @@ const BreedPicker: React.FC<BreedPickerProps> = ({
         placeholder="Search breeds..."
         className="mb-3"
       />
-      <FlatList
-        data={filteredBreeds}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        ListEmptyComponent={listEmptyComponent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        nestedScrollEnabled
-        style={{ maxHeight: 250 }}
-      />
+      {filteredBreeds.length === 0 ? (
+        <View className="items-center py-8">
+          <Text className="text-sm text-muted dark:text-muted-dark">
+            No breeds match your search
+          </Text>
+        </View>
+      ) : (
+        <View>
+          {filteredBreeds.map((item) => (
+            <BreedItem
+              key={item}
+              breed={item}
+              isSelected={selectedBreed === item}
+              onPress={handleBreedSelect}
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 };

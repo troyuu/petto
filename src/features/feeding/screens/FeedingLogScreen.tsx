@@ -252,6 +252,7 @@ export default function FeedingLogScreen() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerClassName="px-5 py-2"
+          style={{ flexGrow: 0 }}
         >
           {pets.map((pet) => {
             const isSelected = pet.id === (selectedPetId ?? pets[0]?.id);
@@ -295,6 +296,7 @@ export default function FeedingLogScreen() {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerClassName="px-5 py-2"
+        style={{ flexGrow: 0 }}
       >
         {DATE_FILTERS.map((filter) => {
           const isActive = filter.value === dateFilter;
